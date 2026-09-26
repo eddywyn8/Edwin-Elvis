@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edwin Shoes - Premium Footwear</title>
+    <!-- Google Fonts & FontAwesome for Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #ff6b6b;
+            --primary-dark: #ee5253;
+            --secondary: #f8f9fa;
+            --accent: #2e86de;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 107, 107, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+        }
+
+        .animate-fade {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        /* Navigation */
+        header {
+            background: var(--white);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+
+        .admin-badge {
+            background: var(--accent);
+            color: var(--white);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: none;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            border-radius: 20px;
+            padding: 60px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .hero-content h1 {
+            font-size: 42px;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .hero-content p {
+            font-size: 16px;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            max-width: 500px;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .hero img {
+            width: 400px;
+            border-radius: 15px;
+            transition: var(--transition);
+            animation: pulseGlow 3s infinite;
+        }
+
+        .hero img:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        /* Product Grid */
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 25px;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .product-info p {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 12px;
+            min-height: 40px;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Forms and Modals / Cards */
+        .auth-card, .admin-card {
+            background: var(--white);
+            max-width: 450px;
+            margin: 40px auto;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+        }
+
+        /* Cart & Orders Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        th {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .cart-summary {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-controls-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        .admin-delete-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* Notification Toast */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #2ed573;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: var(--transition);
+            transform: translateY(100px);
+            opacity: 0;
+            z-index: 2000;
+        }
+        #toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @media(max-width: 768px) {
+            .hero { flex-direction: column; text-align: center; }
+            .hero img { margin-top: 30px; width: 100%; max-width: 300px; }
+            nav ul { gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="logo" onclick="switchSection('home')">
+            <i class="fa-solid fa-shoe-prints"></i> Edwin Shoes
+        </div>
+        <nav>
+            <ul>
+                <li><a onclick="switchSection('home')" id="nav-home" class="active">Home</a></li>
+                <li><a onclick="switchSection('shop')" id="nav-shop">Shop</a></li>
+                <li><a onclick="switchSection('cart')" id="nav-cart">Cart (<span id="cart-count">0</span>)</a></li>
+                <li><a onclick="switchSection('login')" id="nav-login">Admin Login</a></li>
+                <li><a onclick="switchSection('admin')" id="nav-admin" style="display:none;">Admin Panel</a></li>
+                <li><span class="admin-badge" id="admin-badge-label">Admin Active</span></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <!-- HOME SECTION -->
+        <section id="home" class="section active animate-fade">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Step Up Your Style with Edwin Shoes</h1>
+                    <p>Discover the finest collection of premium, comfortable, and trendy footwear designed for every occasion. Quality guaranteed by Edwin Elvis (Tel: 0704585577).</p>
+                    <button class="btn" onclick="switchSection('shop')">Explore Shop Now</button>
+                </div>
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" alt="Featured Shoe">
+            </div>
+
+            <div class="section-title">
+                <span>Featured Collection</span>
+                <button class="btn" style="padding: 6px 15px; font-size: 14px;" onclick="switchSection('shop')">View All</button>
+            </div>
+            <div class="product-grid" id="home-featured-grid">
+                <!-- Populated dynamically -->
+            </div>
+        </section>
+
+        <!-- SHOP SECTION -->
+        <section id="shop" class="section animate-fade">
+            <div class="section-title">
+                <span>All Available Shoes</span>
+            </div>
+            <div class="product-grid" id="shop-product-grid">
+                <!-- Populated dynamically -->
+            </div>
+        </section>
+
+        <!-- CART SECTION -->
+        <section id="cart" class="section animate-fade">
+            <div class="section-title"><span>Your Shopping Cart</span></div>
+            <div id="cart-items-container">
+                <!-- Populated dynamically -->
+            </div>
+            <div class="cart-summary" id="cart-summary-box" style="display: none;">
+                <div>
+                    <h3>Total: <span id="cart-total" style="color: var(--primary);">0 UGX</span></h3>
+                </div>
+                <div>
+                    <button class="btn" onclick="checkoutOrder()">Place Order Now</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ADMIN LOGIN SECTION -->
+        <section id="login" class="section animate-fade">
+            <div class="auth-card">
+                <h2 style="margin-bottom: 20px; text-align: center;">Admin Sign In</h2>
+                <p style="text-align: center; color: var(--text-light); margin-bottom: 20px; font-size: 13px;">
+                    Authorized Personnel Only (Edwin Elvis)
+                </p>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="login-user" placeholder="Enter username...">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-pass" placeholder="Enter password...">
+                </div>
+                <button class="btn" style="width: 100%;" onclick="handleAdminLogin()">Sign In</button>
+            </div>
+        </section>
+
+        <!-- ADMIN PANEL SECTION -->
+        <section id="admin" class="section animate-fade">
+            <div class="section-title" style="display: flex; justify-content: space-between;">
+                <span>Admin Dashboard - Edwin Elvis</span>
+                <button class="btn" onclick="logoutAdmin()" style="background: #636e72; font-size: 13px; padding: 6px 15px;">Log Out</button>
+            </div>
+
+            <!-- Add Product Form -->
+            <div class="admin-card" style="max-width: 100%; margin-bottom: 30px;">
+                <h3 id="form-mode-title" style="margin-bottom: 15px;">Add New Product</h3>
+                <input type="hidden" id="edit-product-id">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <div class="form-group"><label>Name</label><input type="text" id="p-name"></div>
+                    <div class="form-group"><label>Price (e.g. 150,000 UGX)</label><input type="text" id="p-price"></div>
+                    <div class="form-group"><label>Image URL</label><input type="text" id="p-image"></div>
+                </div>
+                <div class="form-group"><label>Caption / Description</label><textarea id="p-caption" rows="2"></textarea></div>
+                <button class="btn" id="save-product-btn" onclick="saveProduct()">Save Product</button>
+                <button class="btn" id="cancel-edit-btn" onclick="resetProductForm()" style="background: #b2bec3; display: none; margin-left: 10px;">Cancel</button>
+            </div>
+
+            <!-- Manage Products -->
+            <h3 style="margin-bottom: 15px;">Manage Inventory</h3>
+            <div id="admin-product-list">
+                <!-- Dynamically populated table -->
+            </div>
+
+            <!-- Customer Orders View -->
+            <h3 style="margin-top: 40px; margin-bottom: 15px;">Customer Orders Received</h3>
+            <div id="admin-orders-list">
+                <!-- Dynamically populated table -->
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast">Action successful!</div>
+
+    <script>
+        // Default Base Products
+        const defaultProducts = [
+            { id: 1, name: "Air Red Runner", price: "120,000 UGX", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff", caption: "Lightweight running shoes built for maximum velocity and cushioning." },
+            { id: 2, name: "Urban Street Sneaker", price: "95,000 UGX", image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a", caption: "Trendy casual wear matching every modern street outfit effortlessly." },
+            { id: 3, name: "Classic Black Formal", price: "150,000 UGX", image: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17", caption: "Sleek leather formal shoes for corporate meetings and official functions." }
+        ];
+
+        // Initialize Local Storage State
+        if (!localStorage.getItem('edwin_products')) {
+            localStorage.setItem('edwin_products', JSON.stringify(defaultProducts));
+        }
+        if (!localStorage.getItem('edwin_orders')) {
+            localStorage.setItem('edwin_orders', JSON.stringify([]));
+        }
+        if (localStorage.getItem('edwin_is_admin') === null) {
+            localStorage.setItem('edwin_is_admin', 'false');
+        }
+
+        let cart = [];
+
+        // Navigation Switcher Function
+        function switchSection(sectionId) {
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            
+            if(document.getElementById('nav-' + sectionId)) {
+                document.getElementById('nav-' + sectionId).classList.add('active');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            if(sectionId === 'shop' || sectionId === 'home') {
+                renderProducts();
+            }
+            if(sectionId === 'cart') {
+                renderCart();
+            }
+            if(sectionId === 'admin') {
+                renderAdminPanel();
+            }
+        }
+
+        // Show Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Render Products across Home and Shop pages
+        function renderProducts() {
+            const products = JSON.parse(localStorage.getItem('edwin_products'));
+            
+            // Home Grid (Max 3 items)
+            const homeGrid = document.getElementById('home-featured-grid');
+            homeGrid.innerHTML = products.slice(0, 3).map(p => productCardTemplate(p)).join('');
+
+            // Shop Grid
+            const shopGrid = document.getElementById('shop-product-grid');
+            shopGrid.innerHTML = products.map(p => productCardTemplate(p)).join('');
+        }
+
+        function productCardTemplate(p) {
+            return `
+                <div class="product-card">
+                    <img src="${p.image}" alt="${p.name}" onerror="this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff'">
+                    <div class="product-info">
+                        <h3>${p.name}</h3>
+                        <p>${p.caption}</p>
+                        <div class="product-footer">
+                            <span class="price">${p.price}</span>
+                            <button class="btn" style="padding: 6px 15px; font-size: 13px;" onclick="addToCart(${p.id})">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Cart Actions
+        function addToCart(productId) {
+            const products = JSON.parse(localStorage.getItem('edwin_products'));
+            const product = products.find(p => p.id === productId);
+            cart.push(product);
+            document.getElementById('cart-count').innerText = cart.length;
+            showToast(`${product.name} added to cart!`);
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const summaryBox = document.getElementById('cart-summary-box');
+            
+            if(cart.length === 0) {
+                container.innerHTML = `<p style="text-align: center; color: var(--text-light); padding: 40px;">Your cart is currently empty. Visit the shop to grab your 
